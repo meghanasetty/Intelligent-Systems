@@ -1,0 +1,1685 @@
+Solving the NQueens using Hill Climbing and its Variants
+
+Problem formulation: 
+The N-queens problem is the problem of placing ‘n’ queens on an n*n board so that no two queens would attack each other. This means that no two queens can be in same row, same column or diagonal. The problem is solved using a complete-state formulation, which means, for example, we start with all 8 queens on the board and move them around to reach the goal state. The position where queen is placed is represented as ‘Q’ and other positions are shown as ‘0’. 
+States: Current queens position on the board.
+Actions: Move these ‘Q’ queen to up (or) down in the same column.
+Successor function: Generates Successors for the N queens board.
+Path Cost: Number of movements for the particular queen, this cost is the heuristic cost.
+Input state: N- No of queens.
+Goal state: No two queens should attack each other.
+
+
+Different Variant in Hill climbing:
+
+Steepest Ascent hill climbing: It examines all the neighbouring nodes and then selects the node closest to the solution state as the next node.
+Hill Climbing with sideways move: The algorithm halts if it reaches a palteauwhere the best successor hass the same name as the current state. Allows a sideways move in the hope that the plateau is really a shoulder. An infinite loop occurs whenever the algorithm reaches a flat local maximum that is not a shoulder.                                                                                        For the limit of 100 consecutive moves in the 8-queens problem the percentage of problem instances raises from 14% to 94%. The algorithm averages roughly 21 steps for each successful instance and 64 for each failure instance.                                                     
+Random Hill Climbing: It conducts a series of hill-climbing searches from randomly generated initial states, until a goal is found. It is complete with probability approaching 1, because it will eventually generate goal state as initial state. If each hill climbing has a probability p of success, then the expected number of restarts required is 1/p. For 8-queens instances with no sideways moves allowed p is approximately 0.14, So we roughly need 7 iterations to find a goal(6 failures and 1 success). For *-queens sideways moves allowed 1/p is approximately 1.06 iterations are needed on an average and 25 steps.                                                            
+ 
+
+Functionality: 
+1.	We get the input of the number of queens from the user.
+2.	I took miniters as 100 and maxiters as 500. For every variant we have, we randomly pick a iteration value.
+3.	SteepestAscentHillClimbing: For each iteration,
+  1.	We generate an initial state
+  2.	Check if the initial State is goal. If yes, continue next iteration. Else,
+  3.	Generate a successor and check if hvalue is less than currentstate. If so, assign currentstate to successor. In this was we get the min hvalue successor.
+  4.	If currentstate changes, then we can check if goal is reached, if not check other successors.
+  5.	If currentstatedoesnot change, then this is failure state.
+4.	SidewaysMove: It is same as steepestAscentHillClimbing, except that the equalsuccessorstates list is added to keep track of successors having same hvalue as currentstate and randomly choose one and keep checking if the goal is reached.
+5.	RandomRestarts without Sideways:
+  1.	Same as Steepest, except we keep generating new initial state whenever the steepest ascent does not reach the goal.
+6.	RandomRestart with Sideways:
+  1.	This is same as SidewaysMove, except we keep generating new intial state whenever the sideways move doesnot reach the goal.
+
+User Input: 
+1.	N –No of Queens
+
+Execution Results: 
+C:\Users\megha\AppData\Local\Continuum\anaconda3\python.exe C:/Users/megha/PycharmProjects/HillClimbing/main.py
+Enter the number of queens: 8
+Hill Climbing with Steepest-Ascent Hill Climbing:
+--------------------------------------------------
+Success Rate: 15.0
+Failure Rate: 85.0
+Average Number of Steps for Success: 3
+Average Number of Steps for Failures: 4
+
+Search Sequence for RandomState:  1
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 Q Q 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q Q 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 Q 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  2
+0 0 0 0 0 Q 0 Q 
+0 0 0 Q Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 Q 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 0 Q Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 Q 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 0 Q Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 Q 
+0 0 0 Q Q 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+Goal Not Reached
+Search Sequence for RandomState:  3
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 Q 0 
+0 Q 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+Goal Not Reached
+**************************************************
+**************************************************
+
+
+Hill Climbing with Sideways Move
+--------------------------------------------------
+Success Rate: 95.6
+Failure Rate: 4.3999999999999995
+Average Number of Steps for Success: 20
+Average Number of Steps for Failures: 66
+
+Search Sequence for RandomState:  1
+Search Sequence for RandomState:  1
+Q 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+Q 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q Q
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q Q
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q Q
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q Q
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  2
+Q 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 Q 0 Q 
+0 0 Q 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+Q 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+Q 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+Q 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  3
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 Q Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q Q 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q Q 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  2
+Search Sequence for RandomState:  1
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 Q QQ 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 Q 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 0 Q Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 Q 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 Q 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 Q 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 Q 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q Q
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 Q 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 Q 0 0 Q 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+
+Goal Not Reached
+Search Sequence for RandomState:  2
+0 0 0 0 0 0 0 0 
+Q Q 0 0 Q Q 0 0 
+0 0 Q 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 Q 0 0 Q Q 0 0 
+0 0 Q 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 Q Q 0 0 
+0 0 Q 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 Q Q 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  3
+Q 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+
+0 Q 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 Q 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  3
+Search Sequence for RandomState:  1
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+Q Q 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 Q Q 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+Q Q 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 Q 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 0 Q Q 0 0 0 0 
+
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 Q 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  2
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 Q 0 
+Q 0 0 0 Q 0 0 0 
+0 Q 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 Q 0 0 0 
+0 Q 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+Q 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 Q 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 Q 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 Q 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 Q 0 
+0 0 0 0 Q 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 0 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 0 
+
+0 0 0 0 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 Q 0 Q 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 Q 0 0 0 0 0 
+
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+Q 0 0 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+0 0 Q 0 0 0 0 0 
+
+Goal Reached
+Search Sequence for RandomState:  3
+0 Q Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 Q Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 Q Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 Q 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q 0 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 Q Q 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 0 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 Q 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+
+0 0 Q 0 0 0 0 0 
+0 0 0 0 Q 0 0 0 
+0 Q 0 0 0 0 0 0 
+0 0 0 0 0 0 0 Q 
+0 0 0 0 0 Q 0 0 
+0 0 0 Q 0 0 0 0 
+0 0 0 0 0 0 Q 0 
+Q 0 0 0 0 0 0 0 
+
+Goal Reached
+**************************************************
+**************************************************
+
+
+Hill Climbing with Random Restarts
+--------------------------------------------------
+The Average Number of Random Restarts used With Sideways Move: 1
+The Average Number of Steps used With Sideways Move: 22
+The Average Number of Random Restarts used WithOut Sideways Move: 6
+The Average Number of Steps used WithOut Sideways Move: 26
+**************************************************
+**************************************************
+The End. :)
+-----------
+
+Process finished with exit code 0
