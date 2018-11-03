@@ -1,0 +1,100 @@
+Solving the 8-puzzle using A* algorithm
+
+Problem formulation:
+An 8-puzzle problem is a sliding puzzle which consists of frame of numbered square tiles in
+random order with one tile missing. The objective of the puzzle is to place the tiles in the
+order by making sliding moves that uses the empty space (Wikipedia)
+States: Number locations on the tiles = 9 locations (Including empty tile which is taken as 0)
+Total number of possible states = 9! Out of these possible states we have only 9!/2 solvable
+configurations (https://en.wikipedia.org/wiki/15_puzzle#Solvability)
+Actions: Move these 0’th tile to up (or) down (or)right (or) left
+Input state: The starting state provided by the user.
+Goal state: The end state user wants to reach.
+Cost for moving the tile: 1
+Performance:To minimize the total number of moves.
+
+Functionality:
+1. We first convert the input state and the goal state to integers of lists of lists.
+2. We have some validations to check if the states are correct
+  a. Check if the number of integers is 9
+  b. Check if the numbers lie between 0-8 and are unique
+3. We get the type of heuristic to apply.
+4. We start applying the A* algorithm
+  a. First we check if the initial state is goal state. If so, we just return.
+  b. While fringe is not empty:
+    i. Generate the childs
+    ii. For each child:
+      1. Check if goal state. If so, return the child
+      2. Check if child state is already present in the fridge with lower F
+         value. If not, add to fringe
+      3. Check if child state is already present in the expanded node
+with lower F value. If not, add to fringe
+    iii. Add the parent to the expanded list.
+5. Print the nodes by taking the goal node and Backtracking it.
+
+User Input:
+1. Input state – The state should be given in 3 rows with 3 integers each separated
+by spaces. The empty tile is indicated by 0.
+2. Goal state – The state should be given in 3 rows with 3 integers each separated by
+spaces. The empty tile is indicated by 0.
+3. ManhattanDistance/Misplaced tiles – We give 1- Manhattan 2- Misplaced tiles
+
+Sample Input:
+
+./main.py
+Enter the input state:
+2 8 1
+3 4 6
+7 5 0
+Enter the goal state:
+3 2 1
+8 0 4
+7 5 6
+hueristic function?
+1.Manhattan Distance
+2.Misplaced Tiles
+(1/2) :1
+
+Execution Results:
+
+Example 1:
+./main.py
+Enter the input state:
+2 8 1
+3 4 6
+7 5 0
+Enter the goal state:
+3 2 1
+8 0 4
+7 5 6
+hueristic function?
+1.Manhattan Distance
+2.Misplaced Tiles
+(1/2) :1
+Reached the goal [[3, 2, 1], [8, 0, 4], [7, 5, 6]]
+The Path length = 7
+Path Trace
+2 8 1
+3 4 6
+7 5
+2 8 1
+3 4
+7 5 6
+2 8 1
+3 4
+7 5 6
+2 1
+3 8 4
+7 5 6
+2 1
+3 8 4
+7 5 6
+3 2 1
+8 4
+7 5 6
+3 2 1
+8 4
+7 5 6
+The number of nodes generated 18
+The number of nodes expanded 6
+Process finished with exit code 0
